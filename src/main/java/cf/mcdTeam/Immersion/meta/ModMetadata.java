@@ -1,9 +1,9 @@
 package cf.mcdTeam.Immersion.meta;
 
-/**
- * Created by XeliteXirish on 09/03/2015.
- *
- * @Author XeliteXirish
- */
+// General mod meta data
 public class ModMetadata {
+
+    public static final String MOD_ID = "Immersion";
+    public static final String NAME = "Immersion";
+    public static final String VERSION = "0.1";
 }
