@@ -1,6 +1,6 @@
 package cf.mcdTeam.Immersion.magic;
 
-public class RRef 
+public class MRef 
 {
 
 }

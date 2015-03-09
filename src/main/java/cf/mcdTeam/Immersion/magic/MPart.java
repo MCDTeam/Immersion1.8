@@ -2,7 +2,7 @@ package cf.mcdTeam.Immersion.magic;
 
 import cf.mcdTeam.Immersion.utils.ModPart;
 
-public class RPart implements ModPart {
+public class MPart implements ModPart {
 
 	@Override
 	public void preInit() {
