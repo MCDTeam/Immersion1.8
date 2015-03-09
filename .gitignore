@@ -1,0 +1,15 @@
+/bin/
+/build/
+/eclipse/
+/.gradle/
+/.settings/
+//gradle1/
+/.project
+/.classpath
+/clientAndServer/
+*.iml
+*.ipr
+*.iws
+*.iml
+*.ipr
+*.iws
