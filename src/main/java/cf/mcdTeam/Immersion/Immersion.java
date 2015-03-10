@@ -10,6 +10,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.relauncher.Side;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -24,21 +25,43 @@ public class Immersion {
     public static SOPart SO = new SOPart();
     public static TPart T = new TPart();
     public static TGPart TG = new TGPart();
+    
     @Mod.Instance
     public static Immersion instance;
 
     public void preInit(FMLPreInitializationEvent event)
     {
+    	B.preInit();
+    	M.preInit();
+    	SO.preInit();
+    	T.preInit();
     	TG.preInit();
     }
 
     public void Init(FMLInitializationEvent event)
     {
+    	B.Init();
+    	M.Init();
+    	SO.Init();
+    	T.Init();
     	TG.Init();
+    	
+    	if (event.getSide() == Side.CLIENT)
+    	{
+        	B.proxyInit();
+        	M.proxyInit();
+        	SO.proxyInit();
+        	T.proxyInit();
+        	TG.proxyInit();
+    	}
     }
 
     public void postInit(FMLPostInitializationEvent event)
     {
+    	B.postInit();
+    	M.postInit();
+    	SO.postInit();
+    	T.postInit();
     	TG.postInit();
     }
 }
