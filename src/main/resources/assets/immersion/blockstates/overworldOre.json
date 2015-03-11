@@ -1,0 +1,12 @@
+{
+	"variants": {
+		"type=iron": { "model": "immersion:ironOre" }
+		"type=tungsten": { "model": "immersion:tungstenOre" }
+		"type=silver": { "model": "immersion:silverOre" }
+		"type=gold": { "model": "immersion:goldOre" }
+		"type=mythril": { "model": "immersion:mythrilOre" }
+		"type=adamantium": { "model": "immersion:adamantiumOre" }
+		"type=tin": { "model": "immersion:tinOre" }
+		"type=copper": { "model": "immersion:copperOre" }
+	}
+}

@@ -6,7 +6,7 @@ public class TGPart implements ModPart {
 
 	@Override
 	public void preInit() {
-		TGRef.overOre;
+		TGRef.init();
 
 	}
 
@@ -24,7 +24,7 @@ public class TGPart implements ModPart {
 
 	@Override
 	public void proxyInit() {
-		// TODO Auto-generated method stub
+		TGRef.clientinit();
 
 	}
 
