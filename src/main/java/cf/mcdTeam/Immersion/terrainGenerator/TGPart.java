@@ -6,7 +6,7 @@ public class TGPart implements ModPart {
 
 	@Override
 	public void preInit() {
-		// TODO Auto-generated method stub
+		TGRef.overOre;
 
 	}
 
