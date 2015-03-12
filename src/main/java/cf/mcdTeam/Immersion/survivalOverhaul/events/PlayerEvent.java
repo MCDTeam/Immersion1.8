@@ -3,10 +3,17 @@ package cf.mcdTeam.Immersion.survivalOverhaul.events;
 import cf.mcdTeam.Immersion.Immersion;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class PlayerEvent {
+
+    public void onPlayerPlace(BlockEvent.PlaceEvent event){
+        if(event.placedBlock.getBlock().equals(Blocks.torch)){
+            //event.world.setBlockState(event.pos, nerw());
+        }
+    }
 
     @SubscribeEvent
     public void onPlayerMine(BlockEvent.BreakEvent event){
