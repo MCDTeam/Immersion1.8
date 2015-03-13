@@ -9,6 +9,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class PlayerEvent {
 
+    @SubscribeEvent
     public void onPlayerPlace(BlockEvent.PlaceEvent event){
         if(event.placedBlock.getBlock().equals(Blocks.torch)){
             //event.world.setBlockState(event.pos, nerw());

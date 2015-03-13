@@ -29,6 +29,7 @@ public class Immersion {
     @Mod.Instance
     public static Immersion instance;
 
+	@Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event)
     {
     	B.preInit();
@@ -38,6 +39,7 @@ public class Immersion {
     	TG.preInit();
     }
 
+	@Mod.EventHandler
     public void Init(FMLInitializationEvent event)
     {
     	B.Init();
@@ -56,6 +58,7 @@ public class Immersion {
     	}
     }
 
+	@Mod.EventHandler
     public void postInit(FMLPostInitializationEvent event)
     {
     	B.postInit();
