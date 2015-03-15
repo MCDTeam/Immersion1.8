@@ -3,7 +3,6 @@ package cf.mcdTeam.Immersion.terrainGenerator.blocks;
 import java.util.List;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockDirt;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyEnum;
@@ -28,6 +27,7 @@ public class BlockOverworldOre extends Block {
 		super(Material.rock);
         this.setDefaultState(this.blockState.getBaseState().withProperty(TYPE, OreType.Iron));
         this.setCreativeTab(CreativeTabs.tabBlock);
+        this.setUnlocalizedName("overworldOre");
         GameRegistry.registerBlock(this, "overworldOre");
 	}
 	
@@ -53,7 +53,8 @@ public class BlockOverworldOre extends Block {
     
     public int getMetaFromState(IBlockState state)
     {
-        return ((BlockDirt.DirtType)state.getValue(TYPE)).getMetadata();
+        OreType type = (OreType)state.getValue(TYPE);
+        return type.getMetadata();
     }
 
     protected BlockState createBlockState()
@@ -63,8 +64,7 @@ public class BlockOverworldOre extends Block {
 
     public int damageDropped(IBlockState state)
     {
-        OreType type = (OreType)state.getValue(TYPE);
-        return type.getMetadata();
+    	return getMetaFromState(state);
     }
     
 	public static enum OreType implements IStringSerializable
