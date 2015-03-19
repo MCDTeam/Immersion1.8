@@ -4,7 +4,10 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.item.Item;
+import net.minecraftforge.fml.common.registry.GameData;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import cf.mcdTeam.Immersion.terrainGenerator.blocks.BlockOverworldOre;
+import cf.mcdTeam.Immersion.terrainGenerator.items.ItemBlockOverworldOre;
 
 public class TGRef 
 {
@@ -14,6 +17,7 @@ public class TGRef
 	public static void init()
 	{
 		overOre = new BlockOverworldOre();
+		GameRegistry.registerBlock(overOre, ItemBlockOverworldOre.class, "overworldOre");
 	}
 	
 	public static void clientinit()
