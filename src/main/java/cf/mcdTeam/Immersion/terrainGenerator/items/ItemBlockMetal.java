@@ -6,10 +6,10 @@ import cf.mcdTeam.Immersion.terrainGenerator.blocks.properties.EMetalType;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 
-public class ItemBlockOverworldOre extends ItemBlock
+public class ItemBlockMetal extends ItemBlock
 {
 
-	public ItemBlockOverworldOre(Block block) 
+	public ItemBlockMetal(Block block) 
 	{
 		super(block);
 		this.setHasSubtypes(true);

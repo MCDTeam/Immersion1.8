@@ -4,24 +4,33 @@ import net.minecraft.util.IStringSerializable;
 
 public enum EMetalType implements IStringSerializable
 {
-	Iron ("oreIron", 0, 3),
-	Tungsten ("oreTungsten", 1, 5),
-	Silver("oreSilver", 2, 2),
-	Gold("oreGold", 3, 2),
-	Mythril("oreMythril", 4, 4),
-	Adamantium("oreAdamantium", 5, 5),
-	Tin("oreTin", 6, 1),
-	Copper("oreCopper", 7, 1);
+	IRON ("iron", 0),
+	ADAMANTIUM ("adamantium", 1),
+	HORRIUM ("horrium", 2),
+	UTOPIUM ("utopium", 3),
+	
+	SILVER ("silver", 4),
+	GOLD ("gold", 5),
+	WITHIUM ("withium", 6),
+	PLATINUM ("platinum", 7),
+	
+	COPPER ("copper", 8),
+	ENEGIUM ("enegium", 9),
+	SUFFERDITE ("sufferdite", 10),
+	POWERNIUM ("powernium", 11),
+	
+	MYTHRIL ("mythril", 12),
+	MYSTERIUM ("mysterium", 13),
+	EVILIUM ("evilium", 14),
+	FANTASMIUM ("fantasmium", 15);
 	
 	public final String name;
 	public final int metadata;
-	public final int breakvalue;
 	private static final EMetalType[] METADATA_LOOKUP = new EMetalType[values().length];
-	private EMetalType(String name, int metadata, int breakvalue)
+	private EMetalType(String name, int metadata)
 	{
 		this.name = name;
 		this.metadata = metadata;
-		this.breakvalue = breakvalue;
 	}
 	
     public int getMetadata()

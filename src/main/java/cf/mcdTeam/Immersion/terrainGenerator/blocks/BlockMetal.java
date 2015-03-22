@@ -18,16 +18,16 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class BlockOverworldOre extends Block {
+public class BlockMetal extends Block {
 
     public static final PropertyEnum TYPE = PropertyEnum.create("type", EMetalType.class);
 	
-    public BlockOverworldOre() 
+    public BlockMetal(String type) 
 	{
 		super(Material.rock);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(TYPE, EMetalType.Iron));
+        this.setDefaultState(this.blockState.getBaseState().withProperty(TYPE, EMetalType.IRON));
         this.setCreativeTab(CreativeTabs.tabBlock);
-        this.setUnlocalizedName("overworldOre");
+        this.setUnlocalizedName(type.concat("Metal"));
 	}
 	
     @SideOnly(Side.CLIENT)

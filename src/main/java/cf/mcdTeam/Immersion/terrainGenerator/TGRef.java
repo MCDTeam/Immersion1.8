@@ -6,31 +6,22 @@ import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraftforge.fml.common.registry.GameData;
 import net.minecraftforge.fml.common.registry.GameRegistry;
-import cf.mcdTeam.Immersion.terrainGenerator.blocks.BlockOverworldOre;
-import cf.mcdTeam.Immersion.terrainGenerator.items.ItemBlockOverworldOre;
+import cf.mcdTeam.Immersion.terrainGenerator.blocks.BlockMetal;
+import cf.mcdTeam.Immersion.terrainGenerator.items.ItemBlockMetal;
 
 public class TGRef 
 {
 	//Ores
-	public static BlockOverworldOre overOre;
+	public static BlockMetal overOre;
 	
 	public static void init()
 	{
-		overOre = new BlockOverworldOre();
-		GameRegistry.registerBlock(overOre, ItemBlockOverworldOre.class, "overworldOre");
+		overOre = new BlockMetal("ore");
+		GameRegistry.registerBlock(overOre, ItemBlockMetal.class, "oreMetal");
 	}
 	
 	public static void clientinit()
 	{
-		RenderItem render = Minecraft.getMinecraft().getRenderItem();
 		
-		render.getItemModelMesher().register(Item.getItemFromBlock(TGRef.overOre), 0, new ModelResourceLocation("immersion:ironOre", "inventory"));
-		render.getItemModelMesher().register(Item.getItemFromBlock(TGRef.overOre), 1, new ModelResourceLocation("immersion:tungstenOre", "inventory"));
-		render.getItemModelMesher().register(Item.getItemFromBlock(TGRef.overOre), 2, new ModelResourceLocation("immersion:silverOre", "inventory"));
-		render.getItemModelMesher().register(Item.getItemFromBlock(TGRef.overOre), 3, new ModelResourceLocation("immersion:goldOre", "inventory"));
-		render.getItemModelMesher().register(Item.getItemFromBlock(TGRef.overOre), 4, new ModelResourceLocation("immersion:mythrilOre", "inventory"));
-		render.getItemModelMesher().register(Item.getItemFromBlock(TGRef.overOre), 5, new ModelResourceLocation("immersion:adamantiumOre", "inventory"));
-		render.getItemModelMesher().register(Item.getItemFromBlock(TGRef.overOre), 6, new ModelResourceLocation("immersion:tinOre", "inventory"));
-		render.getItemModelMesher().register(Item.getItemFromBlock(TGRef.overOre), 7, new ModelResourceLocation("immersion:copperOre", "inventory"));
 	}
 }
