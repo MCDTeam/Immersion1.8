@@ -47,19 +47,19 @@ public class HollowMountain
 				{
 					confirmedpos.add(pos);
 				
-					if (!confirmedpos.contains(pos.north()) && !possiblepos.contains(pos.north()))
+					if (!confirmedpos.contains(pos.north()) && !newpossiblepos.contains(pos.north()))
 					{
 						newpossiblepos.add(pos.north());
 					}
-					if (!confirmedpos.contains(pos.east()) && !possiblepos.contains(pos.east()))
+					if (!confirmedpos.contains(pos.east()) && !newpossiblepos.contains(pos.east()))
 					{
 						newpossiblepos.add(pos.east());
 					}
-					if (!confirmedpos.contains(pos.south()) && !possiblepos.contains(pos.south()))
+					if (!confirmedpos.contains(pos.south()) && !newpossiblepos.contains(pos.south()))
 					{
 						newpossiblepos.add(pos.south());
 					}
-					if (!confirmedpos.contains(pos.west()) && !possiblepos.contains(pos.west()))
+					if (!confirmedpos.contains(pos.west()) && !newpossiblepos.contains(pos.west()))
 					{
 						newpossiblepos.add(pos.west());
 					}
@@ -69,7 +69,7 @@ public class HollowMountain
 			
 			possiblepos = newpossiblepos;
 			
-		} while (!possiblepos.isEmpty() && confirmedpos.size() <= 10000);
+		} while (!possiblepos.isEmpty());
 		
 		return confirmedpos;
 	}
