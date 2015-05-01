@@ -69,14 +69,14 @@ public class HollowMountain
 			
 			possiblepos = newpossiblepos;
 			
-		} while (!possiblepos.isEmpty() && confirmedpos.size() <= 100000);
+		} while (!possiblepos.isEmpty() && confirmedpos.size() <= 10000);
 		
-		System.out.println("Complete. Found " + confirmedpos.size());
 		return confirmedpos;
 	}
 	
 	public static Boolean isValidToRemove (WorldBlockPos pos)
 	{
+		if (pos.getX() <= 63) return true;
 		if (pos.up().isAir() || pos.up().is(Blocks.dirt)) return false;
 		if (pos.down().isAir() || pos.down().is(Blocks.dirt)) return false;
 		if (pos.north().isAir() || pos.north().is(Blocks.dirt)) return false;
