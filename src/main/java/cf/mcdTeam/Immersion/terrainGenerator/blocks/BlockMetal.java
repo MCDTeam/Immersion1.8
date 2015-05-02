@@ -3,6 +3,7 @@ package cf.mcdTeam.Immersion.terrainGenerator.blocks;
 import java.util.List;
 
 import cf.mcdTeam.Immersion.terrainGenerator.blocks.properties.EMetalType;
+import cf.mcdTeam.Immersion.terrainGenerator.items.ItemBlockMetal;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
@@ -28,6 +29,7 @@ public class BlockMetal extends Block {
         this.setDefaultState(this.blockState.getBaseState().withProperty(TYPE, EMetalType.IRON));
         this.setCreativeTab(CreativeTabs.tabBlock);
         this.setUnlocalizedName(type.concat("Metal"));
+        GameRegistry.registerBlock(this, ItemBlockMetal.class, type.concat("Metal"));
 	}
 	
     @SideOnly(Side.CLIENT)

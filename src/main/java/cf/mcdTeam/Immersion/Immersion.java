@@ -47,15 +47,6 @@ public class Immersion {
     	SO.Init();
     	T.Init();
     	TG.Init();
-    	
-    	if (event.getSide() == Side.CLIENT)
-    	{
-        	B.proxyInit();
-        	M.proxyInit();
-        	SO.proxyInit();
-        	T.proxyInit();
-        	TG.proxyInit();
-    	}
     }
 
 	@Mod.EventHandler
@@ -66,5 +57,15 @@ public class Immersion {
     	SO.postInit();
     	T.postInit();
     	TG.postInit();
+    	
+    	if (event.getSide() == Side.CLIENT)
+    	{
+        	B.proxyInit();
+        	M.proxyInit();
+        	SO.proxyInit();
+        	T.proxyInit();
+        	TG.proxyInit();
+    	}
+    	
     }
 }

@@ -8,13 +8,16 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class BlockDebug extends Block {
 
 	public BlockDebug() 
 	{
 		super(Material.rock);
-        this.setCreativeTab(CreativeTabs.tabBlock);
+        setCreativeTab(CreativeTabs.tabBlock);
+        setUnlocalizedName("Debug");
+		GameRegistry.registerBlock(this, "debug");
 	}
 
 	@Override
