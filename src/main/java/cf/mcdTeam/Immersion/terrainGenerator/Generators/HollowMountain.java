@@ -2,6 +2,7 @@ package cf.mcdTeam.Immersion.terrainGenerator.Generators;
 
 import java.util.ArrayList;
 
+import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import cf.mcdTeam.Immersion.utils.WorldBlockPos;
 
@@ -13,24 +14,44 @@ public class HollowMountain
 		
 		ArrayList<WorldBlockPos> toAir = new ArrayList<WorldBlockPos>();
 		
-		for (WorldBlockPos pos : DefineMountain(center))
+		for (WorldBlockPos pos : FindFakeMountain(center))
 		{
-			pos = pos.getposatY(5);
+			pos = pos.getposatY(2);
+			do
+			{
+				pos.setBlock(Blocks.stone.getDefaultState());
+				pos = pos.up();
+			} while (pos.getY() <= 7);
+
+			Block block = pos.topBlock().getBlock();
+			int top;
+			if (block == Blocks.stone || block == Blocks.grass || block == Blocks.dirt) top = pos.topBlock().getY() - 5;
+			else
+			{
+				System.out.println("Processing");
+				WorldBlockPos poss = pos.topBlock();
+				do
+				{
+					poss = poss.down();
+					block = poss.getBlock();
+					System.out.println(poss.getY());
+				} while (!(block == Blocks.stone || block == Blocks.grass || block == Blocks.dirt));
+				top = poss.getY() - 5;
+			}
 			
 			do
 			{
-				if (isValidToRemove(pos)) toAir.add(pos);
+				toAir.add(pos);
 				pos = pos.up();
-			} while (pos.getY() <= 256);
+			} while (pos.getY() < top);
+			System.out.println("Processed" + toAir.size());
 		}
 		
-		for (WorldBlockPos pos : toAir)
-		{
-			pos.setAir();
-		}
+		System.out.println("Clearing" + toAir.size());
+		GeneratorUtils.ClearAll(toAir);
 	}
 	
-	public static ArrayList<WorldBlockPos> DefineMountain(WorldBlockPos start)
+	public static ArrayList<WorldBlockPos> FindFakeMountain(WorldBlockPos start)
 	{
 		ArrayList<WorldBlockPos> possiblepos = new ArrayList<WorldBlockPos>();
 		ArrayList<WorldBlockPos> confirmedpos = new ArrayList<WorldBlockPos>();
@@ -43,23 +64,24 @@ public class HollowMountain
 			
 			for (WorldBlockPos pos : possiblepos)
 			{
-				if (pos.getWorld().getBiomeGenForCoords(start).biomeID == 3 && pos.topBlock().getY() >= 80)
+				if (pos.topBlock().getY() >= 90)
 				{
 					confirmedpos.add(pos);
 				
-					if (!confirmedpos.contains(pos.north()) && !newpossiblepos.contains(pos.north()))
+					System.out.println("Nother");
+					if (!confirmedpos.contains(pos.north()) && !newpossiblepos.contains(pos.north()) && !possiblepos.contains(pos.north()))
 					{
 						newpossiblepos.add(pos.north());
 					}
-					if (!confirmedpos.contains(pos.east()) && !newpossiblepos.contains(pos.east()))
+					if (!confirmedpos.contains(pos.east()) && !newpossiblepos.contains(pos.east()) && !possiblepos.contains(pos.east()))
 					{
 						newpossiblepos.add(pos.east());
 					}
-					if (!confirmedpos.contains(pos.south()) && !newpossiblepos.contains(pos.south()))
+					if (!confirmedpos.contains(pos.south()) && !newpossiblepos.contains(pos.south()) && !possiblepos.contains(pos.south()))
 					{
 						newpossiblepos.add(pos.south());
 					}
-					if (!confirmedpos.contains(pos.west()) && !newpossiblepos.contains(pos.west()))
+					if (!confirmedpos.contains(pos.west()) && !newpossiblepos.contains(pos.west()) && !possiblepos.contains(pos.west()))
 					{
 						newpossiblepos.add(pos.west());
 					}
@@ -71,18 +93,7 @@ public class HollowMountain
 			
 		} while (!possiblepos.isEmpty());
 		
+		System.out.println("Finished" + confirmedpos.size());
 		return confirmedpos;
-	}
-	
-	public static Boolean isValidToRemove (WorldBlockPos pos)
-	{
-		if (pos.getX() <= 63) return true;
-		if (pos.up().isAir() || pos.up().is(Blocks.dirt)) return false;
-		if (pos.down().isAir() || pos.down().is(Blocks.dirt)) return false;
-		if (pos.north().isAir() || pos.north().is(Blocks.dirt)) return false;
-		if (pos.south().isAir() || pos.south().is(Blocks.dirt)) return false;
-		if (pos.east().isAir() || pos.east().is(Blocks.dirt)) return false;
-		if (pos.west().isAir() || pos.west().is(Blocks.dirt)) return false;
-		return true;
 	}
 }
