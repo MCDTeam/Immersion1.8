@@ -1,4 +1,4 @@
-package cf.mcdTeam.Immersion.terrainGenerator.blocks;
+package cf.mcdTeam.Immersion.utils;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;

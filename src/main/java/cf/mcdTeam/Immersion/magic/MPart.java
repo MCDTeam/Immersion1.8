@@ -12,7 +12,7 @@ public class MPart implements ModPart {
 
 	@Override
 	public void Init() {
-		// TODO Auto-generated method stub
+		MRef.init();
 
 	}
 
@@ -24,7 +24,7 @@ public class MPart implements ModPart {
 
 	@Override
 	public void proxyInit() {
-		// TODO Auto-generated method stub
+		MRef.clientinit();
 
 	}
 

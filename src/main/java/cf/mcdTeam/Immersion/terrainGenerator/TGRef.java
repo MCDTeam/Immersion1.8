@@ -9,9 +9,9 @@ import net.minecraftforge.fml.common.registry.GameData;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import cf.mcdTeam.Immersion.meta.ModMetadata;
 import cf.mcdTeam.Immersion.terrainGenerator.blocks.BlockDebug;
-import cf.mcdTeam.Immersion.terrainGenerator.blocks.BlockDecorative;
 import cf.mcdTeam.Immersion.terrainGenerator.blocks.BlockMetal;
 import cf.mcdTeam.Immersion.terrainGenerator.items.ItemBlockMetal;
+import cf.mcdTeam.Immersion.utils.BlockDecorative;
 
 public class TGRef 
 {
