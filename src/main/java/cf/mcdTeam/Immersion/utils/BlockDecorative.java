@@ -12,7 +12,6 @@ public class BlockDecorative extends Block
 	{
 		super(Material.rock);
 		setUnlocalizedName(name);
-		setCreativeTab(CreativeTabs.tabBlock);
 		GameRegistry.registerBlock(this, name);
 	}
 
