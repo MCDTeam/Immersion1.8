@@ -138,8 +138,24 @@ public class WorldBlockPos extends BlockPos
 		return new WorldBlockPos(world, super.down(n));
 	}
 	
+	public WorldBlockPos getposatX(int x)
+	{
+		return new WorldBlockPos(world, x, this.getY(), this.getZ());
+	}
+	
 	public WorldBlockPos getposatY(int y)
 	{
 		return new WorldBlockPos(world, this.getX(), y, this.getZ());
+	}
+	
+	public WorldBlockPos getposatZ(int z)
+	{
+		return new WorldBlockPos(world, this.getX(), this.getY(), z);
+	}
+	
+	@Override
+	public String toString()
+	{
+		return "[" + this.getX() + ", " + this.getX() + ", " + this.getX() + "] ";
 	}
 }
