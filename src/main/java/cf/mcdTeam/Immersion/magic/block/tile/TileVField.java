@@ -1,19 +1,23 @@
 package cf.mcdTeam.Immersion.magic.block.tile;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+
 import cf.mcdTeam.Immersion.utils.WorldBlockPos;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.server.gui.IUpdatePlayerListBox;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.IChatComponent;
 
-public class TileVField extends TileEntity
+public class TileVField extends TileEntity implements IUpdatePlayerListBox
 {
 	Boolean active = false;
-	Boolean lock = true;
+	Boolean lock = false;
 	
 	WorldBlockPos feildpos = null;
 	
@@ -111,5 +115,65 @@ public class TileVField extends TileEntity
     		c.setInteger("fy", feildpos.getY());
     		c.setInteger("fz", feildpos.getZ());
     	}
+    	else
+    	{
+    		c = new NBTTagCompound();
+    		
+    		c.setBoolean("active", active);
+    		c.setBoolean("lock", lock);
+    		
+    		if (lock)
+    		{
+    			c.setInteger("fx", feildpos.getX());
+    			c.setInteger("fy", feildpos.getY());
+    			c.setInteger("fz", feildpos.getZ());
+    		}
+    	}
     }
+
+
+	@Override
+	public void update() 
+	{
+		if (this.worldObj.isRemote)
+		{
+			return;
+		}
+		if (!this.active)
+		{
+			return;
+		}
+		if (!this.lock)
+		{
+			return;
+		}
+		
+		Iterator poss = BlockPos.getAllInBox(this.pos, feildpos).iterator();
+		ArrayList<TileEntity> tiles = new ArrayList<TileEntity>();
+		ArrayList<ISidedInventory> isided = new ArrayList<ISidedInventory>();
+		
+		do
+		{
+			BlockPos pos = (BlockPos) poss.next();
+			TileEntity ent = this.worldObj.getTileEntity(pos);
+			if (ent != null && !(ent instanceof TileVField))
+			{
+				tiles.add(this.worldObj.getTileEntity(pos));
+			}
+			poss.remove();
+		} while (poss.hasNext());
+		
+		for (TileEntity tile : tiles) //Each type of distribution is in two loops, this one checks for inheritance
+		{
+			if (tile instanceof ISidedInventory)
+			{
+				isided.add((ISidedInventory) tile);
+			}
+		}
+		
+		for (ISidedInventory tile : isided) //This one checks for distribution
+		{
+			tile.getSlotsForFace(EnumFacing.NORTH)
+		}
+	}
 }

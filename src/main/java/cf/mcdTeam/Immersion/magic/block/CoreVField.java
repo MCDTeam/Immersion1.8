@@ -6,6 +6,7 @@ import cf.mcdTeam.Immersion.utils.WorldBlockPos;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
@@ -39,7 +40,6 @@ public class CoreVField extends BlockContainer
 		}
 		
 		WorldBlockPos wpos = new WorldBlockPos(world, pos);
-		System.out.println(wpos.getTile().getPos());
 		
 		int x = 0;
 		int z = 0;
@@ -70,7 +70,6 @@ public class CoreVField extends BlockContainer
 		
 		if (flag == false)
 		{
-			System.out.print("z" + z);
 			return;
 		}
 		
@@ -91,7 +90,6 @@ public class CoreVField extends BlockContainer
 			{
 				if (wpos.west(i).getBlock() == MRef.coreVField)
 				{
-					x = wpos.west(i).getX();
 					flag = true;
 					break;
 				}
@@ -100,11 +98,8 @@ public class CoreVField extends BlockContainer
 		
 		if (flag == false)
 		{
-			System.out.print("x");
 			return;
 		}
-		
-		System.out.println("x" + x + "z" + z);
 		
 		wpos = new WorldBlockPos(world, pos);
 		WorldBlockPos pos1 = wpos;
@@ -120,7 +115,7 @@ public class CoreVField extends BlockContainer
 				{
 					if (pos4.getBlock() == this)
 					{
-						
+						pos1 = wpos; //this is kinda a pass instruction, really does nothing
 					}
 					else
 					{
@@ -175,6 +170,13 @@ public class CoreVField extends BlockContainer
 		{
 			return;
 		}
+	}
+	@Override
+	public void breakBlock(World world, BlockPos pos, IBlockState state)
+	{
+		TileVField tile = (TileVField) new WorldBlockPos(world, pos).getTile();
+		tile.onBreak();
+		super.breakBlock(world, pos, state);
 	}
 
 	@Override
