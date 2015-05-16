@@ -2,6 +2,7 @@ package cf.mcdTeam.Immersion.utils;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 
@@ -153,9 +154,14 @@ public class WorldBlockPos extends BlockPos
 		return new WorldBlockPos(world, this.getX(), this.getY(), z);
 	}
 	
+	public TileEntity getTile()
+	{
+		return world.getTileEntity(this);
+	}
+	
 	@Override
 	public String toString()
 	{
-		return "[" + this.getX() + ", " + this.getX() + ", " + this.getX() + "] ";
+		return "[" + this.getX() + ", " + this.getY() + ", " + this.getZ() + "] ";
 	}
 }
