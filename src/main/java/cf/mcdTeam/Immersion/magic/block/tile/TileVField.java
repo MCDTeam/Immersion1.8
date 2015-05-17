@@ -150,7 +150,6 @@ public class TileVField extends TileEntity implements IUpdatePlayerListBox
 		
 		Iterator poss = BlockPos.getAllInBox(this.pos, feildpos).iterator();
 		ArrayList<TileEntity> tiles = new ArrayList<TileEntity>();
-		ArrayList<ISidedInventory> isided = new ArrayList<ISidedInventory>();
 		
 		do
 		{
@@ -163,17 +162,7 @@ public class TileVField extends TileEntity implements IUpdatePlayerListBox
 			poss.remove();
 		} while (poss.hasNext());
 		
-		for (TileEntity tile : tiles) //Each type of distribution is in two loops, this one checks for inheritance
-		{
-			if (tile instanceof ISidedInventory)
-			{
-				isided.add((ISidedInventory) tile);
-			}
-		}
+		//THIS IS UNFINISHED. YAY FOR UNFINISHED STUFF!
 		
-		for (ISidedInventory tile : isided) //This one checks for distribution
-		{
-			tile.getSlotsForFace(EnumFacing.NORTH)
-		}
 	}
 }
