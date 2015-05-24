@@ -171,6 +171,7 @@ public class CoreVField extends BlockContainer
 			return;
 		}
 	}
+	
 	@Override
 	public void breakBlock(World world, BlockPos pos, IBlockState state)
 	{

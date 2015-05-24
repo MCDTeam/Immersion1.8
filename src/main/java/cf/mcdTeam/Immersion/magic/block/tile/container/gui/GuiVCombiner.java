@@ -37,7 +37,7 @@ public class GuiVCombiner extends GuiContainer
 	
 	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) 
 	{
-		su
+		super.drawGuiContainerForegroundLayer(mouseX, mouseY);
 		fontRendererObj.drawString(s, 5, 5, Color.darkGray.getRGB());
 	}
 }

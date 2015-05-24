@@ -168,10 +168,11 @@ public class TileVCombiner extends TileEntityLockable implements ISidedInventory
 	public void readFromNBT(NBTTagCompound c) 
 	{
 		super.readFromNBT(c);
-		NBTTagList i = c.getTagList("inventory", 10);
-		inventory[0] = ItemStack.loadItemStackFromNBT(i.getCompoundTagAt(0));
-		inventory[1] = ItemStack.loadItemStackFromNBT(i.getCompoundTagAt(1));
-		inventory[2] = ItemStack.loadItemStackFromNBT(i.getCompoundTagAt(2));
+		NBTTagList l = c.getTagList("inventory", 10);
+		for (int i = 0; i < l.tagCount(); i ++)
+		{
+			inventory[l.getCompoundTagAt(i).getInteger("slot")] = ItemStack.loadItemStackFromNBT(l.getCompoundTagAt(i));
+		}
 		
         if (c.hasKey("CustomName", 8))
         {
@@ -185,17 +186,31 @@ public class TileVCombiner extends TileEntityLockable implements ISidedInventory
 		super.writeToNBT(c);
 		NBTTagList l = new NBTTagList();
 		
-		NBTTagCompound i = new NBTTagCompound();
-		inventory[0].writeToNBT(i);
-		l.appendTag(i);
+		NBTTagCompound i;
 		
-		i = new NBTTagCompound();
-		inventory[1].writeToNBT(i);
-		l.appendTag(i);
+		if (inventory[0] != null)
+		{
+			i = new NBTTagCompound();
+			i.setInteger("slot", 0);
+			inventory[0].writeToNBT(i);
+			l.appendTag(i);
+		}
 		
-		i = new NBTTagCompound();
-		inventory[2].writeToNBT(i);
-		l.appendTag(i);
+		if (inventory[1] != null)
+		{
+			i = new NBTTagCompound();
+			i.setInteger("slot", 1);
+			inventory[1].writeToNBT(i);
+			l.appendTag(i);
+		}
+		
+		if (inventory[2] != null)
+		{
+			i = new NBTTagCompound();
+			i.setInteger("slot", 2);
+			inventory[2].writeToNBT(i);
+			l.appendTag(i);
+		}
 		
 		c.setTag("inventory", l);
 		

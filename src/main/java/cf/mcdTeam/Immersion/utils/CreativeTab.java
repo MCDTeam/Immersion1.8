@@ -6,7 +6,6 @@ import net.minecraft.item.Item;
 
 public class CreativeTab extends CreativeTabs 
 {
-
 	Item tabItem;
 	
 	public CreativeTab(String name, Item tabItem) 
