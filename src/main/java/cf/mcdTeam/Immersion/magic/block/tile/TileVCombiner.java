@@ -232,7 +232,6 @@ public class TileVCombiner extends TileEntityLockable implements ISidedInventory
 		
 		if (inventory[0] == null || inventory[1] == null)
 		{
-			System.out.println("null");
 			return;
 		}
 		
@@ -253,7 +252,6 @@ public class TileVCombiner extends TileEntityLockable implements ISidedInventory
 				}
 				
 				inventory[2] = new ItemStack(Items.ender_eye);
-				System.out.println("crafted");
 				this.markDirty();
 				return;
 			}
@@ -261,9 +259,17 @@ public class TileVCombiner extends TileEntityLockable implements ISidedInventory
 			if (inventory[2].getItem() == Items.ender_eye && inventory[2].stackSize < 64)
 			{
 				inventory[0].splitStack(1);
+				if (inventory[0].stackSize <= 0)
+				{
+					inventory[0] = null;
+				}
+				
 				inventory[1].splitStack(1);
+				if (inventory[1].stackSize <= 0)
+				{
+					inventory[1] = null;
+				}
 				inventory[2].stackSize ++;
-				System.out.println("crafted");
 				this.markDirty();
 				return;
 			}
