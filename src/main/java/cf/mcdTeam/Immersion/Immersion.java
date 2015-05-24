@@ -1,6 +1,7 @@
 package cf.mcdTeam.Immersion;
 
 import cf.mcdTeam.Immersion.base.BPart;
+import cf.mcdTeam.Immersion.base.GuiHandler;
 import cf.mcdTeam.Immersion.magic.MPart;
 import cf.mcdTeam.Immersion.meta.ModMetadata;
 import cf.mcdTeam.Immersion.survivalOverhaul.SOPart;
@@ -10,6 +11,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 
 import org.apache.logging.log4j.LogManager;
@@ -47,6 +49,7 @@ public class Immersion {
     	SO.Init();
     	T.Init();
     	TG.Init();
+    	NetworkRegistry.INSTANCE.registerGuiHandler(this, new GuiHandler());
     }
 
 	@Mod.EventHandler

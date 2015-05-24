@@ -90,45 +90,28 @@ public class TileVField extends TileEntity implements IUpdatePlayerListBox
     public void readFromNBT(NBTTagCompound c)
     {
 		super.readFromNBT(c);
-		if (c != null)
+		active = c.getBoolean("active");
+		lock = c.getBoolean("lock");
+		if (lock) 
 		{
-			active = c.getBoolean("active");
-			lock = c.getBoolean("lock");
-			if (lock)
-			{
-				feildpos = new WorldBlockPos(this.getWorld(), c.getInteger("fx"), c.getInteger("fy"), c.getInteger("fz"));
-			}
+			feildpos = new WorldBlockPos(this.getWorld(), c.getInteger("fx"),
+					c.getInteger("fy"), c.getInteger("fz"));
 		}
     }
 	
 	@Override
     public void writeToNBT(NBTTagCompound c)
     {
-    	super.writeToNBT(c);
-    	
-    	if (c != null)
-    	{
-    		c.setBoolean("active", active);
-    		c.setBoolean("lock", lock);
-    		
-    		c.setInteger("fx", feildpos.getX());
-    		c.setInteger("fy", feildpos.getY());
-    		c.setInteger("fz", feildpos.getZ());
-    	}
-    	else
-    	{
-    		c = new NBTTagCompound();
-    		
-    		c.setBoolean("active", active);
-    		c.setBoolean("lock", lock);
-    		
-    		if (lock)
-    		{
-    			c.setInteger("fx", feildpos.getX());
-    			c.setInteger("fy", feildpos.getY());
-    			c.setInteger("fz", feildpos.getZ());
-    		}
-    	}
+		super.writeToNBT(c);
+		c.setBoolean("active", active);
+		c.setBoolean("lock", lock);
+
+		if (lock) 
+		{
+			c.setInteger("fx", feildpos.getX());
+			c.setInteger("fy", feildpos.getY());
+			c.setInteger("fz", feildpos.getZ());
+		}
     }
 
 

@@ -1,10 +1,14 @@
 package cf.mcdTeam.Immersion.magic.block.tile;
 
+import cf.mcdTeam.Immersion.magic.block.tile.container.ContainerVCombiner;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTBase;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityLockable;
 import net.minecraft.util.EnumFacing;
@@ -13,6 +17,7 @@ import net.minecraft.util.IChatComponent;
 public class TileVCombiner extends TileEntityLockable implements ISidedInventory
 {
 	ItemStack[] inventory = new ItemStack[3];
+	String name = null;
 	
 	@Override
 	public int getSizeInventory() 
@@ -113,22 +118,21 @@ public class TileVCombiner extends TileEntityLockable implements ISidedInventory
 	}
 
 	@Override
-	public String getName() {
-		// TODO Auto-generated method stub
-		return null;
+	public String getName() 
+	{
+		return this.hasCustomName() ? name : "container.vcombiner";
 	}
 
 	@Override
-	public boolean hasCustomName() {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean hasCustomName() 
+	{
+		return name != null;
 	}
-
-	@Override
-	public IChatComponent getDisplayName() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
+    public void setCustomInventoryName(String name)
+    {
+        this.name = name;
+    }
 
 	@Override
 	public int[] getSlotsForFace(EnumFacing side) 
@@ -149,15 +153,55 @@ public class TileVCombiner extends TileEntityLockable implements ISidedInventory
 	}
 
 	@Override
-	public Container createContainer(InventoryPlayer playerInventory, EntityPlayer playerIn) {
-		// TODO Auto-generated method stub
-		return null;
+	public Container createContainer(InventoryPlayer playerI, EntityPlayer player) 
+	{
+		return new ContainerVCombiner(playerI, this);
 	}
 
 	@Override
 	public String getGuiID() 
 	{
-		return "immersion:tilevcombiner";
+		return "immersion:vcombiner";
 	}
-
+	
+	@Override
+	public void readFromNBT(NBTTagCompound c) 
+	{
+		super.readFromNBT(c);
+		NBTTagList i = c.getTagList("inventory", 10);
+		inventory[0] = ItemStack.loadItemStackFromNBT(i.getCompoundTagAt(0));
+		inventory[1] = ItemStack.loadItemStackFromNBT(i.getCompoundTagAt(1));
+		inventory[2] = ItemStack.loadItemStackFromNBT(i.getCompoundTagAt(2));
+		
+        if (c.hasKey("CustomName", 8))
+        {
+            this.name = c.getString("CustomName");
+        }
+	}
+	
+	@Override
+	public void writeToNBT(NBTTagCompound c) 
+	{
+		super.writeToNBT(c);
+		NBTTagList l = new NBTTagList();
+		
+		NBTTagCompound i = new NBTTagCompound();
+		inventory[0].writeToNBT(i);
+		l.appendTag(i);
+		
+		i = new NBTTagCompound();
+		inventory[1].writeToNBT(i);
+		l.appendTag(i);
+		
+		i = new NBTTagCompound();
+		inventory[2].writeToNBT(i);
+		l.appendTag(i);
+		
+		c.setTag("inventory", l);
+		
+        if (this.hasCustomName())
+        {
+            c.setString("CustomName", this.name);
+        }
+	}
 }
