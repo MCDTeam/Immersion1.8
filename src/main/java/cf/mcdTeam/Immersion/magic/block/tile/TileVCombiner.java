@@ -3,18 +3,20 @@ package cf.mcdTeam.Immersion.magic.block.tile;
 import cf.mcdTeam.Immersion.magic.block.tile.container.ContainerVCombiner;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.server.gui.IUpdatePlayerListBox;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityLockable;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.IChatComponent;
 
-public class TileVCombiner extends TileEntityLockable implements ISidedInventory
+public class TileVCombiner extends TileEntityLockable implements ISidedInventory, IUpdatePlayerListBox
 {
 	ItemStack[] inventory = new ItemStack[3];
 	String name = null;
@@ -218,5 +220,53 @@ public class TileVCombiner extends TileEntityLockable implements ISidedInventory
         {
             c.setString("CustomName", this.name);
         }
+	}
+
+	@Override
+	public void update() 
+	{
+		if (this.worldObj.isRemote)
+		{
+			return;
+		}
+		
+		if (inventory[0] == null || inventory[1] == null)
+		{
+			System.out.println("null");
+			return;
+		}
+		
+		if (inventory[0].getItem() == Items.ender_pearl && inventory[1].getItem() == Items.blaze_powder)
+		{	
+			if (inventory[2] == null)
+			{
+				inventory[0].splitStack(1);
+				if (inventory[0].stackSize <= 0)
+				{
+					inventory[0] = null;
+				}
+				
+				inventory[1].splitStack(1);
+				if (inventory[1].stackSize <= 0)
+				{
+					inventory[1] = null;
+				}
+				
+				inventory[2] = new ItemStack(Items.ender_eye);
+				System.out.println("crafted");
+				this.markDirty();
+				return;
+			}
+			
+			if (inventory[2].getItem() == Items.ender_eye && inventory[2].stackSize < 64)
+			{
+				inventory[0].splitStack(1);
+				inventory[1].splitStack(1);
+				inventory[2].stackSize ++;
+				System.out.println("crafted");
+				this.markDirty();
+				return;
+			}
+		}
 	}
 }
