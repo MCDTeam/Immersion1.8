@@ -19,7 +19,10 @@ public class ShapelessRecipieManager
 	
 	public void addRecipie (Recipie recipie, Item output)
 	{
-		recipies.put(recipie, output);
+		if (recipie.getOrder() == order)
+		{
+			recipies.put(recipie, output);
+		}
 	}
 	
 	public void removeRecipie(Recipie recipie)
@@ -27,9 +30,25 @@ public class ShapelessRecipieManager
 		recipies.remove(recipie);
 	}
 	
-	public void getOutputForRecipie(Recipie recipie)
+	public Item getOutputForRecipie(Recipie recipie)
 	{
-		recipies.get(recipie);
+		return recipies.get(recipie);
+	}
+	
+	public Boolean doesRecipieHaveOutput(Recipie recipie)
+	{
+		return recipies.containsKey(recipie);
+	}
+	
+	public Boolean isPossibleToObtain (Item item)
+	{
+		return recipies.containsValue(item);
+	}
+	
+	public ArrayList<Recipie> getWaysToObtain (Item item)
+	{
+		recipies.
+		return null;
 	}
 	
 	public class Recipie
