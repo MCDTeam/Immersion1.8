@@ -13,6 +13,7 @@ import cf.mcdTeam.Immersion.utils.CreativeTab;
 public class MRef 
 {
 	public static BlockDecorative stoneMagicBrick;
+	public static BlockDecorative stoneVoid;
 	public static CoreVField coreVField;
 	public static BlockVCombiner vCombiner;
 	public static CreativeTab magictab;
@@ -20,12 +21,14 @@ public class MRef
 	public static void init()
 	{
 		stoneMagicBrick = new BlockDecorative("stoneMagicBrick");
+		stoneVoid = new BlockDecorative("stoneVoid");
 		coreVField = new CoreVField();
 		vCombiner = new BlockVCombiner();
 		
 		magictab = new CreativeTab("imagic", Item.getItemFromBlock(coreVField));
-		coreVField.setCreativeTab(magictab);
 		stoneMagicBrick.setCreativeTab(magictab);
+		stoneVoid.setCreativeTab(magictab);
+		coreVField.setCreativeTab(magictab);
 		vCombiner.setCreativeTab(magictab);
 	}
 	

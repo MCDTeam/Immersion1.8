@@ -22,6 +22,7 @@ public class BlockVCombiner extends BlockContainer
 		setUnlocalizedName("blockVCombiner");
 		GameRegistry.registerBlock(this, "blockVCombiner");
 		GameRegistry.registerTileEntity(TileVCombiner.class, "Void Combiner");
+		TileVCombiner.setupRecipieManager();
 		setHarvestLevel("pickaxe", 1);
 		setHardness(1.0F);
 	}

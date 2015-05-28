@@ -2,22 +2,22 @@ package cf.mcdTeam.Immersion.utils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import scala.actors.threadpool.Arrays;
+import java.util.Map.Entry;
+
 import net.minecraft.item.Item;
 
 public class ShapelessRecipieManager 
 {
-	private final HashMap<Recipie, Item> recipies;
+	private final HashMap<ShapelessRecipie, Item> recipies;
 	private final int order;
 	
 	public ShapelessRecipieManager (int order)
 	{
 		this.order = order;
-		recipies = new HashMap<Recipie, Item>();
+		recipies = new HashMap<ShapelessRecipie, Item>();
 	}
 	
-	public void addRecipie (Recipie recipie, Item output)
+	public void addRecipie (ShapelessRecipie recipie, Item output)
 	{
 		if (recipie.getOrder() == order)
 		{
@@ -25,17 +25,17 @@ public class ShapelessRecipieManager
 		}
 	}
 	
-	public void removeRecipie(Recipie recipie)
+	public void removeRecipie(ShapelessRecipie recipie)
 	{
 		recipies.remove(recipie);
 	}
 	
-	public Item getOutputForRecipie(Recipie recipie)
+	public Item getOutputForRecipie(ShapelessRecipie recipie)
 	{
 		return recipies.get(recipie);
 	}
 	
-	public Boolean doesRecipieHaveOutput(Recipie recipie)
+	public Boolean doesRecipieHaveOutput(ShapelessRecipie recipie)
 	{
 		return recipies.containsKey(recipie);
 	}
@@ -45,62 +45,16 @@ public class ShapelessRecipieManager
 		return recipies.containsValue(item);
 	}
 	
-	public ArrayList<Recipie> getWaysToObtain (Item item)
+	public ArrayList<ShapelessRecipie> getWaysToObtain (Item item)
 	{
-		recipies.
+		ArrayList<ShapelessRecipie> rto = new ArrayList<ShapelessRecipie>();
+		for (Entry<ShapelessRecipie, Item> r:recipies.entrySet())
+		{
+			if (r.getValue() == item)
+			{
+				rto.add(r.getKey());
+			}
+		}
 		return null;
-	}
-	
-	public class Recipie
-	{
-		private Item[] recipie;
-		private int order;
-		
-		public Recipie (Item ... recipie)
-		{
-			this.recipie = recipie;
-			this.order = this.recipie.length;
-		}
-		
-		public Item[] getRecipie() 
-		{
-			return recipie;
-		}
-
-		public int getOrder() 
-		{
-			return order;
-		}
-		
-		public Boolean isOrder(int order)
-		{
-			if (this.order == order)
-			{
-				return true;
-			}
-			return false;
-		}
-		
-		@Override
-		public boolean equals(Object obj)
-		{
-			if (obj instanceof Recipie)
-			{
-				Recipie compare = (Recipie) obj;
-				List thisrec = Arrays.asList(this.recipie);
-				if (thisrec.containsAll(Arrays.asList(compare.getRecipie())))
-				{
-					return true;
-				}
-			}
-			
-			return false;
-		}
-		
-		@Override
-		public int hashCode()
-		{
-			return order;
-		}
 	}
 }

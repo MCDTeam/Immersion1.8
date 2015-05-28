@@ -1,11 +1,16 @@
 package cf.mcdTeam.Immersion.magic.block.tile;
 
+import cf.mcdTeam.Immersion.magic.MRef;
 import cf.mcdTeam.Immersion.magic.block.tile.container.ContainerVCombiner;
+import cf.mcdTeam.Immersion.utils.ShapelessRecipie;
+import cf.mcdTeam.Immersion.utils.ShapelessRecipieManager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.ISidedInventory;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
@@ -18,6 +23,26 @@ import net.minecraft.util.IChatComponent;
 
 public class TileVCombiner extends TileEntityLockable implements ISidedInventory, IUpdatePlayerListBox
 {
+	//The Recipie Manager
+	private static ShapelessRecipieManager recipies;
+	public static void setupRecipieManager ()
+	{	
+		if (recipies != null)
+		{
+			return;
+		}
+		recipies = new ShapelessRecipieManager(2);
+		
+		recipies.addRecipie(new ShapelessRecipie(Items.ender_pearl, Items.blaze_powder), Items.ender_eye);
+		recipies.addRecipie(new ShapelessRecipie(Items.ender_eye, Item.getItemFromBlock(Blocks.obsidian)), Item.getItemFromBlock(MRef.stoneVoid));
+	}
+	
+	public static ShapelessRecipieManager getRManager()
+	{
+		return recipies;
+	}
+	
+	//The Tile Entity
 	ItemStack[] inventory = new ItemStack[3];
 	String name = null;
 	
@@ -235,43 +260,51 @@ public class TileVCombiner extends TileEntityLockable implements ISidedInventory
 			return;
 		}
 		
-		if (inventory[0].getItem() == Items.ender_pearl && inventory[1].getItem() == Items.blaze_powder)
-		{	
+		if (inventory[2] != null)
+		{
+			if (inventory[2].stackSize >= 64)
+			{
+				return;
+			}
+		}
+		
+		ShapelessRecipie r = new ShapelessRecipie(inventory[0].getItem(), inventory[1].getItem());
+		if(recipies.doesRecipieHaveOutput(r))
+		{
+			Item i = recipies.getOutputForRecipie(r);
 			if (inventory[2] == null)
 			{
-				inventory[0].splitStack(1);
+				inventory[0].stackSize --;
 				if (inventory[0].stackSize <= 0)
 				{
 					inventory[0] = null;
 				}
 				
-				inventory[1].splitStack(1);
+				inventory[1].stackSize --;
 				if (inventory[1].stackSize <= 0)
 				{
 					inventory[1] = null;
 				}
-				
-				inventory[2] = new ItemStack(Items.ender_eye);
+				inventory[2] = new ItemStack(i);
 				this.markDirty();
 				return;
 			}
 			
-			if (inventory[2].getItem() == Items.ender_eye && inventory[2].stackSize < 64)
+			if (inventory[2].getItem() == i)
 			{
-				inventory[0].splitStack(1);
+				inventory[0].stackSize --;
 				if (inventory[0].stackSize <= 0)
 				{
 					inventory[0] = null;
 				}
 				
-				inventory[1].splitStack(1);
+				inventory[1].stackSize --;
 				if (inventory[1].stackSize <= 0)
 				{
 					inventory[1] = null;
 				}
 				inventory[2].stackSize ++;
 				this.markDirty();
-				return;
 			}
 		}
 	}
