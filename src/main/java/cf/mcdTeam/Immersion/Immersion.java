@@ -7,6 +7,7 @@ import cf.mcdTeam.Immersion.features.FeatureRepository;
 import cf.mcdTeam.Immersion.magic.MPart;
 import cf.mcdTeam.Immersion.meta.ModMetadata;
 import cf.mcdTeam.Immersion.survivalOverhaul.SOPart;
+import cf.mcdTeam.Immersion.survivalOverhaul.SurvivalOverhaul;
 import cf.mcdTeam.Immersion.technology.TPart;
 import cf.mcdTeam.Immersion.terrainGenerator.TGPart;
 import net.minecraftforge.common.config.Configuration;
@@ -27,7 +28,6 @@ public class Immersion {
 
     public static BPart B = new BPart();
     public static MPart M = new MPart();
-    public static SOPart SO = new SOPart();
     public static TPart T = new TPart();
     public static TGPart TG = new TGPart();
     
@@ -44,9 +44,10 @@ public class Immersion {
     {
 		_featureRepository.RegisterFeature(new FeatureDataCollector()); // this need to be first entry, as other features will not work without it
 
+		_featureRepository.RegisterFeature(new SurvivalOverhaul());
+
     	B.preInit();
     	M.preInit();
-    	SO.preInit();
     	T.preInit();
     	TG.preInit();
 
@@ -62,7 +63,6 @@ public class Immersion {
     {
     	B.Init();
     	M.Init();
-    	SO.Init();
     	T.Init();
     	TG.Init();
     	NetworkRegistry.INSTANCE.registerGuiHandler(this, new GuiHandler());
@@ -75,7 +75,6 @@ public class Immersion {
     {
     	B.postInit();
     	M.postInit();
-    	SO.postInit();
     	T.postInit();
     	TG.postInit();
     	
@@ -83,7 +82,6 @@ public class Immersion {
     	{
         	B.proxyInit();
         	M.proxyInit();
-        	SO.proxyInit();
         	T.proxyInit();
         	TG.proxyInit();
     	}
