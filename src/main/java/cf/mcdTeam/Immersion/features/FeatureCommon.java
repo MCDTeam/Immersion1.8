@@ -1,9 +1,26 @@
 package cf.mcdTeam.Immersion.features;
 
 /**
- * Created by XeliteXirish on 22/06/2015.
- *
- * @Author XeliteXirish
+ *  Feature that forces player to spawn randomly
  */
-public class FeatureCommon {
+@Feature(name = "null", version = "null")
+public class FeatureCommon implements IFeature
+{
+    @Override
+    public void preSetup()
+    {
+
+    }
+
+    @Override
+    public IFeature[] setup()
+    {
+        return null;
+    }
+
+    @Override
+    public void postSetup()
+    {
+
+    }
 }

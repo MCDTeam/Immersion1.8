@@ -2,11 +2,14 @@ package cf.mcdTeam.Immersion;
 
 import cf.mcdTeam.Immersion.base.BPart;
 import cf.mcdTeam.Immersion.base.GuiHandler;
+import cf.mcdTeam.Immersion.features.FeatureDataCollector;
+import cf.mcdTeam.Immersion.features.FeatureRepository;
 import cf.mcdTeam.Immersion.magic.MPart;
 import cf.mcdTeam.Immersion.meta.ModMetadata;
 import cf.mcdTeam.Immersion.survivalOverhaul.SOPart;
 import cf.mcdTeam.Immersion.technology.TPart;
 import cf.mcdTeam.Immersion.terrainGenerator.TGPart;
+import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
@@ -30,15 +33,28 @@ public class Immersion {
     
     @Mod.Instance
     public static Immersion instance;
+	private final FeatureRepository _featureRepository;
+
+	public Immersion(FeatureRepository featureRepository) {
+		this._featureRepository = new FeatureRepository();
+	}
 
 	@Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event)
     {
+		_featureRepository.RegisterFeature(new FeatureDataCollector()); // this need to be first entry, as other features will not work without it
+
     	B.preInit();
     	M.preInit();
     	SO.preInit();
     	T.preInit();
     	TG.preInit();
+
+		//get config to send to features
+		Configuration config = new Configuration(event.getSuggestedConfigurationFile());
+
+		this._featureRepository.runPreInitialization(config);
+		config.save();
     }
 
 	@Mod.EventHandler
@@ -50,6 +66,8 @@ public class Immersion {
     	T.Init();
     	TG.Init();
     	NetworkRegistry.INSTANCE.registerGuiHandler(this, new GuiHandler());
+
+		this._featureRepository.runInitialization();
     }
 
 	@Mod.EventHandler
@@ -69,6 +87,7 @@ public class Immersion {
         	T.proxyInit();
         	TG.proxyInit();
     	}
-    	
+
+		this._featureRepository.runPostInitialization();
     }
 }
