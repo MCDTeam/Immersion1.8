@@ -6,12 +6,13 @@ import cf.mcdTeam.Immersion.features.FeatureDataCollector;
 import cf.mcdTeam.Immersion.features.FeatureRepository;
 import cf.mcdTeam.Immersion.magic.MPart;
 import cf.mcdTeam.Immersion.meta.ModMetadata;
-import cf.mcdTeam.Immersion.survivalOverhaul.SOPart;
+import cf.mcdTeam.Immersion.proxy.IProxy;
 import cf.mcdTeam.Immersion.survivalOverhaul.SurvivalOverhaul;
 import cf.mcdTeam.Immersion.technology.TPart;
 import cf.mcdTeam.Immersion.terrainGenerator.TGPart;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -34,6 +35,9 @@ public class Immersion {
     @Mod.Instance
     public static Immersion instance;
 	private final FeatureRepository _featureRepository;
+
+	@SidedProxy(clientSide = ModMetadata.CLIENT_PROXY_CLASS, serverSide = ModMetadata.SERVER_PROXY_CLASS)
+	public static IProxy proxy;
 
 	public Immersion(FeatureRepository featureRepository) {
 		this._featureRepository = new FeatureRepository();
@@ -80,6 +84,8 @@ public class Immersion {
     	
     	if (event.getSide() == Side.CLIENT)
     	{
+			this._featureRepository.runClient();
+
         	B.proxyInit();
         	M.proxyInit();
         	T.proxyInit();

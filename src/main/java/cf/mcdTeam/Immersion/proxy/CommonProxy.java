@@ -1,9 +1,9 @@
 package cf.mcdTeam.Immersion.proxy;
 
-/**
- * Created by XeliteXirish on 22/06/2015.
- *
- * @Author XeliteXirish
- */
-public class CommonProxy {
+public abstract class CommonProxy implements IProxy{
+
+    @Override
+    public void registerTileEntitys() {
+
+    }
 }

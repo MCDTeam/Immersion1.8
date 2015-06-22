@@ -190,8 +190,8 @@ public class FeatureRepository {
 
     }
 
-    public void runClient(Configuration configuration){ //TODO
-        runSetup(configuration);
+    public void runClient(){ //TODO
+
         ILogger log = this._logger;
 
         log.info("Running ClientProxy of all features");
