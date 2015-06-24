@@ -59,7 +59,7 @@ public class Immersion
 		{
 			part.Init();
 		}
-    	NetworkRegistry.INSTANCE.registerGuiHandler(this, new GuiHandler(this));
+    	NetworkRegistry.INSTANCE.registerGuiHandler(this, new GuiHandler());
     }
 
 	@Mod.EventHandler
