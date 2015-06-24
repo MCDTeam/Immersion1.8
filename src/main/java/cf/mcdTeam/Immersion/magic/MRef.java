@@ -21,7 +21,11 @@ public class MRef
 	public static void init()
 	{
 		stoneMagicBrick = new BlockDecorative("stoneMagicBrick");
+		stoneMagicBrick.setHarvestLevel("pickaxe", 1);
+		stoneMagicBrick.setHardness(1.0F);
 		stoneVoid = new BlockDecorative("stoneVoid");
+		stoneMagicBrick.setHarvestLevel("pickaxe", 3);
+		stoneMagicBrick.setHardness(6.0F);
 		coreVField = new CoreVField();
 		vCombiner = new BlockVCombiner();
 		

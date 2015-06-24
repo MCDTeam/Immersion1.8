@@ -35,6 +35,7 @@ public class TileVCombiner extends TileEntityLockable implements ISidedInventory
 		
 		recipies.addRecipie(new ShapelessRecipie(Items.ender_pearl, Items.blaze_powder), Items.ender_eye);
 		recipies.addRecipie(new ShapelessRecipie(Items.ender_eye, Item.getItemFromBlock(Blocks.obsidian)), Item.getItemFromBlock(MRef.stoneVoid));
+		recipies.addRecipie(new ShapelessRecipie(Items.ender_eye, Item.getItemFromBlock(MRef.stoneVoid)), Item.getItemFromBlock(Blocks.ender_chest));
 	}
 	
 	public static ShapelessRecipieManager getRManager()
