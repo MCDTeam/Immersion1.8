@@ -1,13 +1,13 @@
 package cf.mcdTeam.Immersion.survivalOverhaul;
 
 import cf.mcdTeam.Immersion.survivalOverhaul.block.ModBlocks;
-import cf.mcdTeam.Immersion.utils.ModPart;
+import cf.mcdTeam.Immersion.utils.IModPart;
 
-public class SOPart implements ModPart {
+public class SOPart implements IModPart {
 
 	@Override
-	public void preInit() {
-
+	public void preInit() 
+	{
 		ModBlocks.init();
 	}
 

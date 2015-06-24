@@ -1,6 +1,9 @@
 package cf.mcdTeam.Immersion.utils;
 
-public interface ModPart
+import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.tileentity.TileEntity;
+
+public interface IModPart
 {
 	public void preInit();
 	public void Init();

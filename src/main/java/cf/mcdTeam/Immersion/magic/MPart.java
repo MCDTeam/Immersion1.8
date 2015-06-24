@@ -1,31 +1,34 @@
 package cf.mcdTeam.Immersion.magic;
 
-import cf.mcdTeam.Immersion.utils.ModPart;
+import cf.mcdTeam.Immersion.utils.IModPart;
 
-public class MPart implements ModPart {
+public class MPart implements IModPart {
 
 	@Override
-	public void preInit() {
+	public void preInit() 
+	{
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void Init() {
+	public void Init() 
+	{
 		MRef.init();
 
 	}
 
 	@Override
-	public void postInit() {
+	public void postInit() 
+	{
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void proxyInit() {
+	public void proxyInit() 
+	{
 		MRef.clientinit();
 
 	}
-
 }

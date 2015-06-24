@@ -1,8 +1,8 @@
 package cf.mcdTeam.Immersion.terrainGenerator;
 
-import cf.mcdTeam.Immersion.utils.ModPart;
+import cf.mcdTeam.Immersion.utils.IModPart;
 
-public class TGPart implements ModPart {
+public class TGPart implements IModPart {
 
 	@Override
 	public void preInit() {
@@ -13,7 +13,7 @@ public class TGPart implements ModPart {
 	@Override
 	public void Init() {
 		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override

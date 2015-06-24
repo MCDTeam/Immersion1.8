@@ -1,8 +1,8 @@
 package cf.mcdTeam.Immersion.technology;
 
-import cf.mcdTeam.Immersion.utils.ModPart;
+import cf.mcdTeam.Immersion.utils.IModPart;
 
-public class TPart implements ModPart {
+public class TPart implements IModPart {
 
 	@Override
 	public void preInit() {
