@@ -2,6 +2,8 @@ package cf.mcdTeam.Immersion.magic.block.tile;
 
 import cf.mcdTeam.Immersion.magic.MRef;
 import cf.mcdTeam.Immersion.magic.block.tile.container.ContainerVCombiner;
+import cf.mcdTeam.Immersion.magic.block.tile.container.gui.GuiVCombiner;
+import cf.mcdTeam.Immersion.utils.ITileGuiProvider;
 import cf.mcdTeam.Immersion.utils.ShapelessRecipie;
 import cf.mcdTeam.Immersion.utils.ShapelessRecipieManager;
 import net.minecraft.entity.player.EntityPlayer;
@@ -21,7 +23,7 @@ import net.minecraft.tileentity.TileEntityLockable;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.IChatComponent;
 
-public class TileVCombiner extends TileEntityLockable implements ISidedInventory, IUpdatePlayerListBox
+public class TileVCombiner extends TileEntityLockable implements ISidedInventory, IUpdatePlayerListBox, ITileGuiProvider
 {
 	//The Recipie Manager
 	private static ShapelessRecipieManager recipies;
@@ -308,5 +310,17 @@ public class TileVCombiner extends TileEntityLockable implements ISidedInventory
 				this.markDirty();
 			}
 		}
+	}
+
+	@Override
+	public Object serverGui(int ID, EntityPlayer player) 
+	{
+		return new ContainerVCombiner(player.inventory, this);
+	}
+
+	@Override
+	public Object clientGui(int ID, EntityPlayer player) 
+	{
+		return new GuiVCombiner(player.inventory, this);
 	}
 }

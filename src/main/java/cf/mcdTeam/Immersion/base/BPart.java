@@ -2,9 +2,9 @@ package cf.mcdTeam.Immersion.base;
 
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import cf.mcdTeam.Immersion.Immersion;
-import cf.mcdTeam.Immersion.utils.ModPart;
+import cf.mcdTeam.Immersion.utils.IModPart;
 
-public class BPart implements ModPart {
+public class BPart implements IModPart {
 
 	@Override
 	public void preInit() 
@@ -15,7 +15,7 @@ public class BPart implements ModPart {
 	@Override
 	public void Init() 
 	{
-		NetworkRegistry.INSTANCE.registerGuiHandler(Immersion.instance, new GuiHandler());
+		
 	}
 
 	@Override

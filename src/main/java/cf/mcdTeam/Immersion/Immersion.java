@@ -1,12 +1,15 @@
 package cf.mcdTeam.Immersion;
 
+import java.util.ArrayList;
+
 import cf.mcdTeam.Immersion.base.BPart;
-import cf.mcdTeam.Immersion.base.GuiHandler;
 import cf.mcdTeam.Immersion.magic.MPart;
 import cf.mcdTeam.Immersion.meta.ModMetadata;
 import cf.mcdTeam.Immersion.survivalOverhaul.SOPart;
 import cf.mcdTeam.Immersion.technology.TPart;
 import cf.mcdTeam.Immersion.terrainGenerator.TGPart;
+import cf.mcdTeam.Immersion.utils.GuiHandler;
+import cf.mcdTeam.Immersion.utils.IModPart;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
@@ -18,57 +21,61 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 @Mod(modid = ModMetadata.MOD_ID, name = ModMetadata.NAME, version = ModMetadata.VERSION)
-public class Immersion {
+public class Immersion 
+{
+	public final ArrayList<IModPart> partlist;
 
-    public static Logger log = LogManager.getLogger(ModMetadata.MOD_ID);
-
-    public static BPart B = new BPart();
-    public static MPart M = new MPart();
-    public static SOPart SO = new SOPart();
-    public static TPart T = new TPart();
-    public static TGPart TG = new TGPart();
+    public Logger log = LogManager.getLogger(ModMetadata.MOD_ID);
     
-    @Mod.Instance
+    @Mod.Instance(ModMetadata.MOD_ID)
     public static Immersion instance;
 
+    public Immersion()
+    {
+    	partlist = new ArrayList<IModPart>();
+    	
+    	//PARTLIST CONFIGURATION
+    	partlist.add(new BPart());
+    	partlist.add(new MPart());
+    	partlist.add(new SOPart());
+    	partlist.add(new TPart());
+    	partlist.add(new TGPart());
+    	//END PARTLIST
+    }
+    
 	@Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event)
     {
-    	B.preInit();
-    	M.preInit();
-    	SO.preInit();
-    	T.preInit();
-    	TG.preInit();
+		for (IModPart part : partlist)
+		{
+			part.preInit();
+		}
     }
 
 	@Mod.EventHandler
     public void Init(FMLInitializationEvent event)
     {
-    	B.Init();
-    	M.Init();
-    	SO.Init();
-    	T.Init();
-    	TG.Init();
+		for (IModPart part : partlist)
+		{
+			part.Init();
+		}
     	NetworkRegistry.INSTANCE.registerGuiHandler(this, new GuiHandler());
     }
 
 	@Mod.EventHandler
     public void postInit(FMLPostInitializationEvent event)
     {
-    	B.postInit();
-    	M.postInit();
-    	SO.postInit();
-    	T.postInit();
-    	TG.postInit();
+		for (IModPart part : partlist)
+		{
+			part.postInit();
+		}
     	
     	if (event.getSide() == Side.CLIENT)
     	{
-        	B.proxyInit();
-        	M.proxyInit();
-        	SO.proxyInit();
-        	T.proxyInit();
-        	TG.proxyInit();
+    		for (IModPart part : partlist)
+    		{
+    			part.proxyInit();
+    		}
     	}
-    	
     }
 }
