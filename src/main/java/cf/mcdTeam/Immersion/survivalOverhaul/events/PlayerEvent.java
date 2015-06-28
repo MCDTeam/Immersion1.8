@@ -20,12 +20,13 @@ public class PlayerEvent {
 
     @SubscribeEvent
     public void onPlayerMine(BlockEvent.BreakEvent event){
-
+        System.out.println("MINED BLOCK");
         EntityPlayer player = event.getPlayer();
         Block block = event.state.getBlock();
 
         if(isBlockTooHard(getTier(player.posY), player.getHeldItem())){
-
+            System.out.println("TOOO HARD");
+            event.setCanceled(true);
         }
 
         /*if(getTier(event.pos.getY()) == 1){
@@ -58,10 +59,11 @@ public class PlayerEvent {
      */
     public boolean isBlockTooHard(int hardness, ItemStack pickaxe){
         if(pickaxe.getItem() instanceof ItemPickaxe){
-            String unlocName = pickaxe.getUnlocalizedName();
+            System.out.println("PICK");
+            String unlocName = pickaxe.getDisplayName();
 
             if(unlocName.contains("wood") || (unlocName.contains("stone"))){
-                if(hardness == 1) return true;
+                if(hardness != 1) return false;
                 else return false;
 
             }else if(unlocName.contains("iron")){
