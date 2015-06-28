@@ -54,17 +54,19 @@ public class PlayerEvent {
      * Checks is the pickaxe is able to mine at the depth
      * @param hardness
      * @param pickaxe
-     * @return
+     * @return true if pickaxe can mine
      */
     public boolean isBlockTooHard(int hardness, ItemStack pickaxe){
         if(pickaxe.getItem() instanceof ItemPickaxe){
             String unlocName = pickaxe.getUnlocalizedName();
 
             if(unlocName.contains("wood") || (unlocName.contains("stone"))){
-                if(hardness != 1) return true;
+                if(hardness == 1) return true;
+                else return false;
 
             }else if(unlocName.contains("iron")){
                 if(hardness >= 2) return true;
+                else return false;
 
             }else if(unlocName.contains("diamond")){
                 // Will always be true;
