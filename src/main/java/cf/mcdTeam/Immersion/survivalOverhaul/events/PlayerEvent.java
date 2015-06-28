@@ -3,6 +3,7 @@ package cf.mcdTeam.Immersion.survivalOverhaul.events;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemPickaxe;
 import net.minecraft.item.ItemStack;
@@ -24,7 +25,7 @@ public class PlayerEvent {
         EntityPlayer player = event.getPlayer();
         Block block = event.state.getBlock();
 
-        if(isBlockTooHard(getTier(player.posY), player.getHeldItem())){
+        if(!isBlockTooHard(getTier(player.posY), player.getHeldItem())){
             System.out.println("TOOO HARD");
             event.setCanceled(true);
         }
@@ -54,23 +55,24 @@ public class PlayerEvent {
     /**
      * Checks is the pickaxe is able to mine at the depth
      * @param hardness
-     * @param pickaxe
+     * @param itemPick
      * @return true if pickaxe can mine
      */
-    public boolean isBlockTooHard(int hardness, ItemStack pickaxe){
-        if(pickaxe.getItem() instanceof ItemPickaxe){
+    public boolean isBlockTooHard(int hardness, ItemStack itemPick){
+        if(itemPick.getItem() instanceof ItemPickaxe){
             System.out.println("PICK");
-            String unlocName = pickaxe.getDisplayName();
 
-            if(unlocName.contains("wood") || (unlocName.contains("stone"))){
-                if(hardness != 1) return false;
+            ItemPickaxe heldPick = (ItemPickaxe) itemPick.getItem();
+
+            if(heldPick.equals(Items.wooden_pickaxe) || (heldPick.equals(Items.stone_pickaxe) || (heldPick.equals(Items.golden_pickaxe)))){
+                if(hardness == 1) return true;
                 else return false;
 
-            }else if(unlocName.contains("iron")){
-                if(hardness >= 2) return true;
+            }else if(heldPick.equals(Items.iron_pickaxe)){
+                if(hardness <= 2) return true;
                 else return false;
 
-            }else if(unlocName.contains("diamond")){
+            }else if(heldPick.equals(Items.diamond_pickaxe)){
                 // Will always be true;
                 return true;
             }
