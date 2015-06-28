@@ -1,9 +1,11 @@
 package cf.mcdTeam.Immersion.survivalOverhaul.events;
 
-import cf.mcdTeam.Immersion.Immersion;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemPickaxe;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
@@ -22,7 +24,11 @@ public class PlayerEvent {
         EntityPlayer player = event.getPlayer();
         Block block = event.state.getBlock();
 
-        if(getTier(event.pos.getY()) == 1){
+        if(isBlockTooHard(getTier(player.posY), player.getHeldItem())){
+
+        }
+
+        /*if(getTier(event.pos.getY()) == 1){
             block.setHardness(2F);
         }
         if(getTier(event.pos.getY()) == 2){
@@ -32,15 +38,39 @@ public class PlayerEvent {
             block.setHardness(10F);
         }
         if(getTier(event.pos.getY()) == 0){
-            Immersion.log.error(block.getUnlocalizedName() + " doesnt have a block tier. Coords: [" + event.pos.getX() + ", " + event.pos.getY() + ", ", event.pos.getZ() + "]");
+            //Immersion.log.error(block.getUnlocalizedName() + " doesnt have a block tier. Coords: [" + event.pos.getX() + ", " + event.pos.getY() + ", ", event.pos.getZ() + "]");
             block.setBlockUnbreakable();
-        }
+        }*/
     }
 
-    private int getTier(int y){
+    private int getTier(double y){
         if(y > 50) return 1;
         else if((y <= 50) && (y > 25)) return 2;
         else if((y <= 25) && (y >= 0)) return 3;
         else return 0;
+    }
+
+    /**
+     * Checks is the pickaxe is able to mine at the depth
+     * @param hardness
+     * @param pickaxe
+     * @return
+     */
+    public boolean isBlockTooHard(int hardness, ItemStack pickaxe){
+        if(pickaxe.getItem() instanceof ItemPickaxe){
+            String unlocName = pickaxe.getUnlocalizedName();
+
+            if(unlocName.contains("wood") || (unlocName.contains("stone"))){
+                if(hardness != 1) return true;
+
+            }else if(unlocName.contains("iron")){
+                if(hardness >= 2) return true;
+
+            }else if(unlocName.contains("diamond")){
+                // Will always be true;
+                return true;
+            }
+        }
+        return false;
     }
 }

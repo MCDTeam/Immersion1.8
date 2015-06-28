@@ -1,7 +1,9 @@
 package cf.mcdTeam.Immersion.survivalOverhaul;
 
 import cf.mcdTeam.Immersion.survivalOverhaul.block.ModBlocks;
+import cf.mcdTeam.Immersion.survivalOverhaul.events.PlayerEvent;
 import cf.mcdTeam.Immersion.utils.IModPart;
+import net.minecraftforge.common.MinecraftForge;
 
 public class SOPart implements IModPart {
 
@@ -13,8 +15,8 @@ public class SOPart implements IModPart {
 
 	@Override
 	public void Init() {
-		// TODO Auto-generated method stub
 
+		MinecraftForge.EVENT_BUS.register(new PlayerEvent());
 	}
 
 	@Override

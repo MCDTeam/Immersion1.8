@@ -10,6 +10,7 @@ import cf.mcdTeam.Immersion.technology.TPart;
 import cf.mcdTeam.Immersion.terrainGenerator.TGPart;
 import cf.mcdTeam.Immersion.utils.GuiHandler;
 import cf.mcdTeam.Immersion.utils.IModPart;
+import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
