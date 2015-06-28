@@ -6,6 +6,7 @@ import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import cf.mcdTeam.Immersion.magic.block.BlockVCombiner;
 import cf.mcdTeam.Immersion.magic.block.CoreVField;
+import cf.mcdTeam.Immersion.magic.item.ItemPortableVoidPulsar;
 import cf.mcdTeam.Immersion.meta.ModMetadata;
 import cf.mcdTeam.Immersion.utils.BlockDecorative;
 import cf.mcdTeam.Immersion.utils.CreativeTab;
@@ -17,23 +18,29 @@ public class MRef
 	public static CoreVField coreVField;
 	public static BlockVCombiner vCombiner;
 	public static CreativeTab magictab;
+	public static ItemPortableVoidPulsar portableVoidPulsar;
 	
 	public static void init()
 	{
 		stoneMagicBrick = new BlockDecorative("stoneMagicBrick");
 		stoneMagicBrick.setHarvestLevel("pickaxe", 1);
 		stoneMagicBrick.setHardness(1.0F);
+		
 		stoneVoid = new BlockDecorative("stoneVoid");
 		stoneMagicBrick.setHarvestLevel("pickaxe", 3);
 		stoneMagicBrick.setHardness(6.0F);
+		
 		coreVField = new CoreVField();
 		vCombiner = new BlockVCombiner();
+		
+		portableVoidPulsar = new ItemPortableVoidPulsar();
 		
 		magictab = new CreativeTab("imagic", Item.getItemFromBlock(coreVField));
 		stoneMagicBrick.setCreativeTab(magictab);
 		stoneVoid.setCreativeTab(magictab);
 		coreVField.setCreativeTab(magictab);
 		vCombiner.setCreativeTab(magictab);
+		portableVoidPulsar.setCreativeTab(magictab);
 	}
 	
 	public static void clientinit()

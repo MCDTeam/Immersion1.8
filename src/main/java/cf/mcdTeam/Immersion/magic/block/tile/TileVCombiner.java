@@ -3,6 +3,7 @@ package cf.mcdTeam.Immersion.magic.block.tile;
 import cf.mcdTeam.Immersion.magic.MRef;
 import cf.mcdTeam.Immersion.magic.block.tile.container.ContainerVCombiner;
 import cf.mcdTeam.Immersion.magic.block.tile.container.gui.GuiVCombiner;
+import cf.mcdTeam.Immersion.magic.vpenergy.IVoidPulseAcceptor;
 import cf.mcdTeam.Immersion.utils.ITileGuiProvider;
 import cf.mcdTeam.Immersion.utils.ShapelessRecipie;
 import cf.mcdTeam.Immersion.utils.ShapelessRecipieManager;
@@ -23,7 +24,7 @@ import net.minecraft.tileentity.TileEntityLockable;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.IChatComponent;
 
-public class TileVCombiner extends TileEntityLockable implements ISidedInventory, IUpdatePlayerListBox, ITileGuiProvider
+public class TileVCombiner extends TileEntityLockable implements ISidedInventory, ITileGuiProvider, IVoidPulseAcceptor
 {
 	//The Recipie Manager
 	private static ShapelessRecipieManager recipies;
@@ -38,6 +39,7 @@ public class TileVCombiner extends TileEntityLockable implements ISidedInventory
 		recipies.addRecipie(new ShapelessRecipie(Items.ender_pearl, Items.blaze_powder), Items.ender_eye);
 		recipies.addRecipie(new ShapelessRecipie(Items.ender_eye, Item.getItemFromBlock(Blocks.obsidian)), Item.getItemFromBlock(MRef.stoneVoid));
 		recipies.addRecipie(new ShapelessRecipie(Items.ender_eye, Item.getItemFromBlock(MRef.stoneVoid)), Item.getItemFromBlock(Blocks.ender_chest));
+		recipies.addRecipie(new ShapelessRecipie(Items.ender_eye, Items.ender_pearl), MRef.portableVoidPulsar);
 	}
 	
 	public static ShapelessRecipieManager getRManager()
@@ -251,63 +253,63 @@ public class TileVCombiner extends TileEntityLockable implements ISidedInventory
 	}
 
 	@Override
-	public void update() 
+	public void acceptPulse(int strength) 
 	{
 		if (this.worldObj.isRemote)
 		{
 			return;
 		}
 		
-		if (inventory[0] == null || inventory[1] == null)
+		for (int u = 0; u < strength; u++) 
 		{
-			return;
-		}
-		
-		if (inventory[2] != null)
-		{
-			if (inventory[2].stackSize >= 64)
+			if (inventory[0] == null || inventory[1] == null) 
 			{
-				return;
+				continue;
 			}
-		}
-		
-		ShapelessRecipie r = new ShapelessRecipie(inventory[0].getItem(), inventory[1].getItem());
-		if(recipies.doesRecipieHaveOutput(r))
-		{
-			Item i = recipies.getOutputForRecipie(r);
-			if (inventory[2] == null)
-			{
-				inventory[0].stackSize --;
-				if (inventory[0].stackSize <= 0)
+			if (inventory[2] != null) {
+				if (inventory[2].stackSize >= 64) 
 				{
-					inventory[0] = null;
+					continue;
 				}
-				
-				inventory[1].stackSize --;
-				if (inventory[1].stackSize <= 0)
-				{
-					inventory[1] = null;
-				}
-				inventory[2] = new ItemStack(i);
-				this.markDirty();
-				return;
 			}
-			
-			if (inventory[2].getItem() == i)
+			ShapelessRecipie r = new ShapelessRecipie(inventory[0].getItem(),inventory[1].getItem());
+			if (recipies.doesRecipieHaveOutput(r)) 
 			{
-				inventory[0].stackSize --;
-				if (inventory[0].stackSize <= 0)
+				Item i = recipies.getOutputForRecipie(r);
+				if (inventory[2] == null) 
 				{
-					inventory[0] = null;
+					inventory[0].stackSize--;
+					if (inventory[0].stackSize <= 0) 
+					{
+						inventory[0] = null;
+					}
+
+					inventory[1].stackSize--;
+					if (inventory[1].stackSize <= 0) 
+					{
+						inventory[1] = null;
+					}
+					inventory[2] = new ItemStack(i);
+					this.markDirty();
+					continue;
 				}
-				
-				inventory[1].stackSize --;
-				if (inventory[1].stackSize <= 0)
+
+				if (inventory[2].getItem() == i) 
 				{
-					inventory[1] = null;
+					inventory[0].stackSize--;
+					if (inventory[0].stackSize <= 0) 
+					{
+						inventory[0] = null;
+					}
+
+					inventory[1].stackSize--;
+					if (inventory[1].stackSize <= 0) 
+					{
+						inventory[1] = null;
+					}
+					inventory[2].stackSize++;
+					this.markDirty();
 				}
-				inventory[2].stackSize ++;
-				this.markDirty();
 			}
 		}
 	}
