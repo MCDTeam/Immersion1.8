@@ -1,5 +1,6 @@
 package cf.mcdTeam.Immersion.survivalOverhaul.events;
 
+import cf.mcdTeam.Immersion.survivalOverhaul.PlayerWeight;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -9,6 +10,8 @@ import net.minecraft.item.ItemPickaxe;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.TickEvent;
+import net.minecraftforge.fml.relauncher.Side;
 
 public class PlayerEvent {
 
@@ -21,8 +24,20 @@ public class PlayerEvent {
 
     @SubscribeEvent
     public void onPlayerMine(BlockEvent.BreakEvent event){
-
+        // Might be able to use PlayerEvent.BreakSpeed - TODO
         miningOverhaul(event);
+    }
+
+    @SubscribeEvent
+    public void playerEvent(TickEvent.PlayerTickEvent event){
+        System.out.println("TEST");
+        if(event.phase == TickEvent.Phase.START) {
+
+            EntityPlayer player = event.player;
+
+            PlayerWeight playerWeight = new PlayerWeight();
+            playerWeight.init(player);
+        }
     }
 
     public void miningOverhaul(BlockEvent.BreakEvent event){
@@ -32,11 +47,13 @@ public class PlayerEvent {
 
         if(!player.capabilities.isCreativeMode) {
             if(player.getHeldItem() != null) {
-                if (isItemPickaxe(player.getHeldItem())) {
-                    if (isPickAbleToMine(getTier(event.pos.getY()), player.getHeldItem())) {
-                    } else {
-                        // Send the player a brief message - TODO
-                        event.setCanceled(true);
+                if (block.equals(Blocks.stone)) {
+                    if (isItemPickaxe(player.getHeldItem())) {
+                        if (isPickAbleToMine(getTier(event.pos.getY()), player.getHeldItem())) {
+                        } else {
+                            // Send the player a brief message - TODO
+                            event.setCanceled(true);
+                        }
                     }
                 }
             }
