@@ -15,7 +15,7 @@ public class PlayerEvent {
     @SubscribeEvent
     public void onPlayerPlace(BlockEvent.PlaceEvent event){
         if(event.placedBlock.getBlock().equals(Blocks.torch)){
-            //event.world.setBlockState(event.pos, nerw());
+            //TODO
         }
     }
 
@@ -30,10 +30,16 @@ public class PlayerEvent {
         EntityPlayer player = event.getPlayer();
         Block block = event.state.getBlock();
 
-        if(isPickAbleToMine(getTier(event.pos.getY()), player.getHeldItem())){
-        }else{
-            // Send the player a brief message - TODO
-            event.setCanceled(true);
+        if(!player.capabilities.isCreativeMode) {
+            if(player.getHeldItem() != null) {
+                if (isItemPickaxe(player.getHeldItem())) {
+                    if (isPickAbleToMine(getTier(event.pos.getY()), player.getHeldItem())) {
+                    } else {
+                        // Send the player a brief message - TODO
+                        event.setCanceled(true);
+                    }
+                }
+            }
         }
     }
 
