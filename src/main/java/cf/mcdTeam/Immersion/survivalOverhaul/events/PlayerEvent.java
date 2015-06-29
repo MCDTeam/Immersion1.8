@@ -23,33 +23,16 @@ public class PlayerEvent {
     public void onPlayerMine(BlockEvent.BreakEvent event){
 
         miningOverhaul(event);
-
-        /*if(getTier(event.pos.getY()) == 1){
-            block.setHardness(2F);
-        }
-        if(getTier(event.pos.getY()) == 2){
-            block.setHardness(5F);
-        }
-        if(getTier(event.pos.getY()) == 3){
-            block.setHardness(10F);
-        }
-        if(getTier(event.pos.getY()) == 0){
-            //Immersion.log.error(block.getUnlocalizedName() + " doesnt have a block tier. Coords: [" + event.pos.getX() + ", " + event.pos.getY() + ", ", event.pos.getZ() + "]");
-            block.setBlockUnbreakable();
-        }*/
     }
 
     public void miningOverhaul(BlockEvent.BreakEvent event){
 
-        System.out.println("MINED BLOCK");
         EntityPlayer player = event.getPlayer();
         Block block = event.state.getBlock();
 
         if(isPickAbleToMine(getTier(event.pos.getY()), player.getHeldItem())){
-            System.out.println("CAN MINE BLOCK!");
         }else{
-            System.out.println("CANT MINE!!");
-            block.setHardness(15);
+            // Send the player a brief message - TODO
             event.setCanceled(true);
         }
     }
