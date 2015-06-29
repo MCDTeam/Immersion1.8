@@ -15,13 +15,14 @@ import java.util.HashMap;
  */
 public class PlayerWeight {
 
-    public ArrayList<ItemStack> wholeInventory = new ArrayList<ItemStack>();
+    //public ArrayList<ItemStack> wholeInventory = new ArrayList<ItemStack>();
+    public ItemStack[] wholeInventory;
     public static HashMap<ItemStack, Integer> itemBlockWeight = new HashMap();
     public int playerWeight = 0;
 
     public void init(EntityPlayer player){
-        addBaseItemWeights();
         addPlayerInventory(player);
+        addBaseItemWeights();
 
         addTotalWeight();
     }
@@ -30,13 +31,7 @@ public class PlayerWeight {
      * Helper Methods
      */
     private void addPlayerInventory(EntityPlayer player){
-        for(int x = 0; x < player.inventory.getSizeInventory(); x++){
-            ItemStack itemStack = player.getHeldItem();
-
-            if(itemStack != null) {
-                wholeInventory.add(itemStack);
-            }
-        }
+        this.wholeInventory = player.getInventory();
     }
 
     public static HashMap<ItemStack, Integer> getHashMap(){
@@ -69,8 +64,8 @@ public class PlayerWeight {
     }
 
     public void addTotalWeight(){
-        for(int x = 0; x < wholeInventory.size(); x++){
-            ItemStack itemStack = wholeInventory.get(x);
+        for(int x = 0; x < wholeInventory.length; x++){
+            ItemStack itemStack = wholeInventory[x];
             int itemstackWeight = getWeightForItem(itemStack) * itemStack.stackSize;
 
             playerWeight = playerWeight + itemstackWeight;
