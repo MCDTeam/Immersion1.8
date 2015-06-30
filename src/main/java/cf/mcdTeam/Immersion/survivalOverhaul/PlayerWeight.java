@@ -16,9 +16,10 @@ import java.util.HashMap;
 public class PlayerWeight {
 
     //public ArrayList<ItemStack> wholeInventory = new ArrayList<ItemStack>();
-    public ItemStack[] wholeInventory;
+    public ArrayList<ItemStack> wholeInventory;
     public static HashMap<ItemStack, Integer> itemBlockWeight = new HashMap();
     public int playerWeight = 0;
+    public int INVENTORY_SLOTS = 35;
 
     public void init(EntityPlayer player){
         addPlayerInventory(player);
@@ -27,23 +28,14 @@ public class PlayerWeight {
         addTotalWeight();
     }
 
-    /**
-     * Helper Methods
-     */
     private void addPlayerInventory(EntityPlayer player){
-        this.wholeInventory = player.getInventory();
-    }
+        for(int x = 0; x < INVENTORY_SLOTS; x++){
 
-    public static HashMap<ItemStack, Integer> getHashMap(){
-        return itemBlockWeight;
-    }
-
-    public static void addItemWeight(ItemStack itemStack, int weight){
-        itemBlockWeight.put(itemStack, weight);
-    }
-
-    public static void addItemWeight(Block block, int weight){
-        itemBlockWeight.put( new ItemStack(block), weight);
+            ItemStack itemStack = player.inventory.getStackInSlot(x);
+            if(itemStack != null) {
+                wholeInventory.add(itemStack);
+            }
+        }
     }
 
     public static void addBaseItemWeights(){
@@ -64,11 +56,25 @@ public class PlayerWeight {
     }
 
     public void addTotalWeight(){
-        for(int x = 0; x < wholeInventory.length; x++){
-            ItemStack itemStack = wholeInventory[x];
+        for(ItemStack itemStack : wholeInventory){
             int itemstackWeight = getWeightForItem(itemStack) * itemStack.stackSize;
 
             playerWeight = playerWeight + itemstackWeight;
         }
+    }
+
+    /**
+     * Helper Methods
+     */
+    public static HashMap<ItemStack, Integer> getHashMap(){
+        return itemBlockWeight;
+    }
+
+    public static void addItemWeight(ItemStack itemStack, int weight){
+        itemBlockWeight.put(itemStack, weight);
+    }
+
+    public static void addItemWeight(Block block, int weight){
+        itemBlockWeight.put( new ItemStack(block), weight);
     }
 }
