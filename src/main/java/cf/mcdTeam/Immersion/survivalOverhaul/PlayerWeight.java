@@ -1,5 +1,6 @@
 package cf.mcdTeam.Immersion.survivalOverhaul;
 
+import cf.mcdTeam.Immersion.Immersion;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -16,7 +17,7 @@ import java.util.HashMap;
 public class PlayerWeight {
 
     //public ArrayList<ItemStack> wholeInventory = new ArrayList<ItemStack>();
-    public ArrayList<ItemStack> wholeInventory;
+    public ArrayList<ItemStack> wholeInventory = new ArrayList<ItemStack>();
     public static HashMap<ItemStack, Integer> itemBlockWeight = new HashMap();
     public int playerWeight = 0;
     public int INVENTORY_SLOTS = 35;
@@ -57,9 +58,13 @@ public class PlayerWeight {
 
     public void addTotalWeight(){
         for(ItemStack itemStack : wholeInventory){
-            int itemstackWeight = getWeightForItem(itemStack) * itemStack.stackSize;
+            if(doesItemstackHaveWeight(itemStack)) {
+                int itemstackWeight = getWeightForItem(itemStack) * itemStack.stackSize;
 
-            playerWeight = playerWeight + itemstackWeight;
+                playerWeight = playerWeight + itemstackWeight;
+            }else{
+                Immersion.instance.log.error("Itemstack doesnt have assigned weight - " + itemStack.getUnlocalizedName());
+            }
         }
     }
 
@@ -76,5 +81,9 @@ public class PlayerWeight {
 
     public static void addItemWeight(Block block, int weight){
         itemBlockWeight.put( new ItemStack(block), weight);
+    }
+
+    public static boolean doesItemstackHaveWeight(ItemStack itemStack){
+        return getHashMap().containsValue(itemStack);
     }
 }
