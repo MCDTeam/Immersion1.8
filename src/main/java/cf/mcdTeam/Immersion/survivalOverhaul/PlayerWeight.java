@@ -4,8 +4,6 @@ import cf.mcdTeam.Immersion.Immersion;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
 import java.util.ArrayList;
@@ -68,6 +66,10 @@ public class PlayerWeight {
         }
     }
 
+    //TODO
+    public static void slowPlayer(EntityPlayer player){
+    }
+
     /**
      * Helper Methods
      */
@@ -85,5 +87,12 @@ public class PlayerWeight {
 
     public static boolean doesItemstackHaveWeight(ItemStack itemStack){
         return getHashMap().containsValue(itemStack);
+    }
+
+    public static int getWeightTier(int weight){
+        if(weight < 6400) return 0;
+        else if(weight > 6400 && weight < 10000) return 1;
+
+        else return 0;
     }
 }
