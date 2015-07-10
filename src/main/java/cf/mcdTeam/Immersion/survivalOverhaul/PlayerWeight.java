@@ -2,12 +2,15 @@ package cf.mcdTeam.Immersion.survivalOverhaul;
 
 import cf.mcdTeam.Immersion.Immersion;
 import net.minecraft.block.Block;
+import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.UUID;
 
 /**
  * As a player gains more items in their whole inventory their weight level increases.  At certain treshholds, they start to become slower while moving.
@@ -68,6 +71,13 @@ public class PlayerWeight {
 
     //TODO
     public static void slowPlayer(EntityPlayer player){
+        final AttributeModifier attribute = new AttributeModifier(UUID.fromString("ABE2DC00-867B-4842-B773-FA91B0901CFE"), "movementSpeed", 1D, 2);
+
+        if(player.getEntityAttribute(SharedMonsterAttributes.movementSpeed).getModifier(UUID.fromString("ABE2DC00-867B-4842-B773-FA91B0901CFE")) == null)
+        {
+            player.getEntityAttribute(SharedMonsterAttributes.movementSpeed).applyModifier(attribute);
+
+        }
     }
 
     /**
